@@ -7,12 +7,36 @@ services:
       - tmp_shared:/tmp/shared
       - cache:/cache
 
+  vite_dev:
+    <<: *app_base
+    volumes:
+      - .:/myapp
+      - node_modules_cache:/myapp/node_modules
+    ports:
+      - "3036:3036"
+    environment:
+      DEBUG: '*vite*'
+      NODE_ENV: development
+      VITE_RUBY_HOST: 0.0.0.0
+      __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS: vite_dev
+    command:
+      - /bin/sh
+      - -c
+      - |
+          npm install
+          /myapp/bin/vite dev
+
   rails:
     <<: *app_base
+    depends_on:
+      - vite_dev
     ports:
       - "3000:3000"
     environment:
       RAILS_ENV: local_dev
+      VITE_RUBY_HOST: vite_dev
+      VITE_RUBY_PORT: 3036
+      VITE_RUBY_MODE: development
     command:
       - /bin/bash
       - -c
@@ -27,4 +51,4 @@ volumes:
   bundle_data:
   tmp_shared:
   cache:
-  node_module_cache:
+  node_modules_cache:
