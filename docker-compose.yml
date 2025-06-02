@@ -1,0 +1,30 @@
+services:
+  app: &app_base
+    build: .
+    volumes:
+      - .:/myapp
+      - bundle_data:/usr/local/bundle
+      - tmp_shared:/tmp/shared
+      - cache:/cache
+
+  rails:
+    <<: *app_base
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: local_dev
+    command:
+      - /bin/bash
+      - -c
+      - |
+        chmod 777 /tmp/shared
+        rm -f /myapp/tmp/pids/server.pid
+        bundle install
+        bundle exec rails db:migrate
+        bin/rails s -p 3000 -b 0.0.0.0
+
+volumes:
+  bundle_data:
+  tmp_shared:
+  cache:
+  node_module_cache:
