@@ -1,6 +1,8 @@
 # RailsにViteを導入して、HMRを使って開発を行うための設定のサンプル
 
-## Version
+## 環境
+
+### Version
 
 * Ruby  3.3
 
@@ -15,10 +17,21 @@
   * vite-plugin-ruby 5.1
   * @vitejs/plugin-react 4.5
 
-## Docker
+### Docker
 
 * container
   * rails
     * port: 3000
   * vite_dev
     * port: 3036
+
+## 使い方
+
+リポジトリをCLONEしたらビルドしてコンテナを立ち上げてください
+
+```
+$ docker compose build
+
+$ docker compose up -d
+
+```
