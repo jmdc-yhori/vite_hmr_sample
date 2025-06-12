@@ -1,24 +1,24 @@
-# README
+# RailsにViteを導入して、HMRを使って開発を行うための設定のサンプル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Version
 
-Things you may want to cover:
+* Ruby  3.3
 
-* Ruby version
+* Gemモジュール
+  * Rails 7.2
+  * vite_rails 3.9.2
 
-* System dependencies
+* Node 22.2
 
-* Configuration
+* Nodeモジュール
+  * vite 6.3.5
+  * vite-plugin-ruby 5.1
+  * @vitejs/plugin-react 4.5
 
-* Database creation
+## Docker
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* container
+  * rails
+    * port: 3000
+  * vite_dev
+    * port: 3036
