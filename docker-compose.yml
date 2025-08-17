@@ -1,14 +1,6 @@
 services:
-  app: &app_base
-    build: .
-    volumes:
-      - .:/myapp
-      - bundle_data:/usr/local/bundle
-      - tmp_shared:/tmp/shared
-      - cache:/cache
-
   vite_dev:
-    <<: *app_base
+    build: .
     volumes:
       - .:/myapp
       - node_modules_cache:/myapp/node_modules
@@ -16,7 +8,7 @@ services:
       - "3036:3036"
     environment:
       DEBUG: '*vite*'
-      NODE_ENV: development
+      RAILS_ENV: development
       VITE_RUBY_HOST: 0.0.0.0
       __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS: vite_dev
     command:
@@ -27,7 +19,12 @@ services:
           /myapp/bin/vite dev
 
   rails:
-    <<: *app_base
+    build: .
+    volumes:
+      - .:/myapp
+      - bundle_data:/usr/local/bundle
+      - tmp_shared:/tmp/shared
+      - cache:/cache
     depends_on:
       - vite_dev
     ports:
